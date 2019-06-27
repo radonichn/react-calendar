@@ -6,7 +6,7 @@ import Calendar from "./components/Calendar";
 function App() {
   return (
     <div className="App">
-      Calendar
+      <h1 className="display-4 m-2">Calendar App</h1>
       <Calendar />
     </div>
   );

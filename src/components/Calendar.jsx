@@ -8,13 +8,17 @@ class Calendar extends Component {
   weekdays = moment.weekdaysShort();
   render() {
     return (
-      <table>
-        {this.weekdays.map(day => (
-          <th key={day} className="week-day">
-            {day}
-          </th>
-        ))}
-      </table>
+      <div className="container col-sm-4 mt-3">
+        <table className="table">
+          <thead className="thead-dark">
+            {this.weekdays.map(day => (
+              <th key={day} className="week-day">
+                {day}
+              </th>
+            ))}
+          </thead>
+        </table>
+      </div>
     );
   }
 }
