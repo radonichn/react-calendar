@@ -4,3 +4,27 @@
 .day.current {
   background-color: #f5bc42;
 }
+.table {
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+td.day {
+  transition: background-color 0.3s ease;
+}
+td.day:hover {
+  background-color: rgb(221, 221, 221);
+  cursor: pointer;
+}
+td.day.current:hover {
+  background-color: #ffae00;
+}
+.table th.table-nav {
+  border: 1px solid #1093ad;
+  background-color: #1093ad;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.table th.table-nav:hover {
+  background-color: #0f7286;
+  border: 1px solid #0f7286;
+}

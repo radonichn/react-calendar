@@ -76,9 +76,17 @@ class Calendar extends Component {
       <div className="container col-sm-4 mt-3">
         <table className="table table-bordered">
           <thead className="thead-dark">
-            <tr>{weekdays}</tr>
+            <tr>
+              <th className="table-nav">prev</th>
+              <th colSpan="3">{this.month()}</th>
+              <th colSpan="2">{this.year()}</th>
+              <th className="table-nav">next</th>
+            </tr>
           </thead>
-          <tbody>{trElems}</tbody>
+          <tbody>
+            <tr className="thead-light">{weekdays}</tr>
+            {trElems}
+          </tbody>
         </table>
       </div>
     );
