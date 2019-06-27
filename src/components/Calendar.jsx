@@ -42,6 +42,22 @@ class Calendar extends Component {
         </td>
       );
     }
+    let totalDays = [...blanks, ...daysInMonth];
+    let rows = [],
+      cells = [];
+    totalDays.forEach((row, i) => {
+      if (i % 7 !== 0) cells.push(row);
+      else {
+        let insRow = cells.slice();
+        rows.push(insRow);
+        cells = [];
+        cells.push(row);
+      }
+      if (i === totalDays.length - 1) {
+        let insRows = cells.slice();
+        row.push(insRows);
+      }
+    });
     console.log(daysInMonth);
     return (
       <div className="container col-sm-4 mt-3">
