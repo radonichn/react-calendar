@@ -11,6 +11,10 @@
 td.day {
   transition: background-color 0.3s ease;
 }
+td.day.pending {
+  color: green;
+  font-weight: bold;
+}
 td.day:hover {
   background-color: rgb(221, 221, 221);
   cursor: pointer;

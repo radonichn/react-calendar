@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./index.css";
+import Cell from "./Cell";
 class Calendar extends Component {
   state = {
+    notes: [],
     current: new Date(),
     immutable: new Date(),
     note: ""
@@ -22,7 +24,8 @@ class Calendar extends Component {
   ];
   weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   year = () => this.state.current.getFullYear();
-  month = () => this.months[this.state.current.getMonth()];
+  getMonth = () => this.state.current.getMonth();
+  month = () => this.months[this.getMonth()];
   daysInMonth = () =>
     new Date(this.year(), this.state.current.getMonth() + 1, 0).getDate(); // new Date(year(), this.state.current.getMonth() + 1, 0).getDate()) /////
   currentDate = () => this.state.current.getDate();
@@ -43,6 +46,25 @@ class Calendar extends Component {
     let current = new Date(d.setMonth(d.getMonth() - 1));
     this.setState({ current });
   };
+  isIndex = id => {
+    return this.state.notes.findIndex(x => x.id === id);
+  };
+  handleNote = e => {
+    const notes = [...this.state.notes];
+    const index = notes.findIndex(x => x.id === e);
+    if (index !== -1) {
+      let text = prompt("What did you planned?", notes[index].text);
+      notes[index].text = text;
+    } else {
+      let text = prompt("What did you planned?", "");
+      const newItem = {
+        id: e,
+        text: text
+      };
+      notes.push(newItem);
+    }
+    this.setState({ notes });
+  };
   render() {
     let weekdays = this.weekdays.map(day => {
       return (
@@ -61,11 +83,21 @@ class Calendar extends Component {
     }
     let daysInMonth = [];
     for (let i = 1; i <= this.daysInMonth(); i++) {
+      const id = new Date(this.year(), this.getMonth(), i).getTime();
       let className = i === this.currentDate() ? "day current" : "day";
+      const index = this.state.notes.findIndex(x => x.id === id);
+      if (index !== -1 && this.state.notes[index].text !== "") {
+        className += " pending";
+      }
       daysInMonth.push(
-        <td key={i * 125} className={className} onDoubleClick={this.addNote}>
-          {i}
-        </td>
+        <Cell
+          key={i * 125}
+          customClass={className}
+          val={i}
+          id={id}
+          handleNote={this.handleNote}
+          handleDouble={this.handleAll}
+        />
       );
     }
     let totalDays = [...blanks, ...daysInMonth];
@@ -88,7 +120,7 @@ class Calendar extends Component {
       return <tr key={i * 25}>{d}</tr>;
     });
     return (
-      <div className="container col-sm-4 mt-3">
+      <div className="container col-sm-12 col-md-4 mt-3">
         <table className="table table-bordered">
           <thead className="thead-dark">
             <tr>
