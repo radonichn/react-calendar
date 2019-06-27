@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import moment from "moment";
 import "./index.css";
 class Calendar extends Component {
-  state = {
-    dateObj: moment()
-  };
   weekdays = moment.weekdaysShort();
-  year = () => this.state.dateObj.format("Y");
-  month = () => this.state.dateObj.format("MMMM");
-  daysInMonth = () => this.state.dateObj.daysInMonth();
-  currentDate = () => this.state.dateObj.get("date");
-  currentDay = () => this.state.dateObj.format("D");
-  firstDay = () => {
-    let date = this.state.dateObj;
-    let firstDay = date.startOf("month").format("d");
-    return firstDay;
+  state = {
+    current: moment()
   };
+  year = () => this.state.current.format("Y");
+  month = () => this.state.current.format("MMMM");
+  daysInMonth = () => this.state.current.daysInMonth();
+  currentDate = () => this.state.current.get("date");
+  currentDay = () => this.state.current.format("D");
+  firstDay = () => this.state.current.startOf("month").format("d");
   render() {
     let weekdays = this.weekdays.map(day => {
       return (
@@ -33,11 +29,12 @@ class Calendar extends Component {
       );
     }
     let daysInMonth = [];
+    // console.log(moment());
     for (let i = 1; i <= this.daysInMonth(); i++) {
       let className =
-        i === this.currentDay() ? "day badge badge-warning" : "day";
+        i == this.currentDay() ? "day badge badge-warning" : "day";
       daysInMonth.push(
-        <td key={i} className={className}>
+        <td key={i * 125} className={className}>
           {i}
         </td>
       );
@@ -55,19 +52,19 @@ class Calendar extends Component {
       }
       if (i === totalDays.length - 1) {
         let insRows = cells.slice();
-        row.push(insRows);
+        rows.push(insRows);
       }
     });
-    console.log(daysInMonth);
+    let trElems = rows.map((d, i) => {
+      return <tr key={i * 25}>{d}</tr>;
+    });
     return (
       <div className="container col-sm-4 mt-3">
         <table className="table table-bordered">
           <thead className="thead-dark">
             <tr>{weekdays}</tr>
           </thead>
-          <tbody>
-            <tr>{blanks.map(b => b)}</tr>
-          </tbody>
+          <tbody>{trElems}</tbody>
         </table>
       </div>
     );
