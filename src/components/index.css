@@ -1,3 +1,6 @@
 .blanks {
   background-color: lime;
 }
+.day.current {
+  background-color: #f5bc42;
+}

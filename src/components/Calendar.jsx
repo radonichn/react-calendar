@@ -1,17 +1,32 @@
 import React, { Component } from "react";
-import moment from "moment";
 import "./index.css";
 class Calendar extends Component {
-  weekdays = moment.weekdaysShort();
   state = {
-    current: moment()
+    current: new Date()
+    // immutable: new Date()
   };
-  year = () => this.state.current.format("Y");
-  month = () => this.state.current.format("MMMM");
-  daysInMonth = () => this.state.current.daysInMonth();
-  currentDate = () => this.state.current.get("date");
-  currentDay = () => this.state.current.format("D");
-  firstDay = () => this.state.current.startOf("month").format("d");
+  months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  year = () => this.state.current.getFullYear();
+  month = () => this.months[this.state.current.getMonth()];
+  daysInMonth = () =>
+    new Date(this.year(), this.state.current.getMonth() + 1, 0).getDate(); // new Date(year(), this.state.current.getMonth() + 1, 0).getDate()) /////
+  currentDate = () => this.state.current.getDate();
+  firstDay = () =>
+    new Date(this.year(), this.state.current.getMonth(), 0).getDay();
   render() {
     let weekdays = this.weekdays.map(day => {
       return (
@@ -21,6 +36,7 @@ class Calendar extends Component {
       );
     });
     let blanks = [];
+    console.log(this.month());
     for (let i = 0; i < this.firstDay(); i++) {
       blanks.push(
         <td className="blank" key={i}>
@@ -29,10 +45,8 @@ class Calendar extends Component {
       );
     }
     let daysInMonth = [];
-    // console.log(moment());
     for (let i = 1; i <= this.daysInMonth(); i++) {
-      let className =
-        i == this.currentDay() ? "day badge badge-warning" : "day";
+      let className = i === this.currentDate() ? "day current" : "day";
       daysInMonth.push(
         <td key={i * 125} className={className}>
           {i}
