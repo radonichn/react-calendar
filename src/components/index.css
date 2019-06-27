@@ -24,6 +24,7 @@ td.day.current:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 .table th.table-nav:hover {
   background-color: #0f7286;
   border: 1px solid #0f7286;
