@@ -46,22 +46,26 @@ class Calendar extends Component {
     let current = new Date(d.setMonth(d.getMonth() - 1));
     this.setState({ current });
   };
-  isIndex = id => {
+  getIndex = id => {
     return this.state.notes.findIndex(x => x.id === id);
   };
-  handleNote = e => {
+  handleNote = id => {
     const notes = [...this.state.notes];
-    const index = notes.findIndex(x => x.id === e);
+    const index = this.getIndex(id);
     if (index !== -1) {
       let text = prompt("What did you planned?", notes[index].text);
-      notes[index].text = text;
+      if (text != null) {
+        notes[index].text = text;
+      }
     } else {
       let text = prompt("What did you planned?", "");
-      const newItem = {
-        id: e,
-        text: text
-      };
-      notes.push(newItem);
+      if (text != null) {
+        const newItem = {
+          id,
+          text
+        };
+        notes.push(newItem);
+      }
     }
     this.setState({ notes });
   };
@@ -85,7 +89,7 @@ class Calendar extends Component {
     for (let i = 1; i <= this.daysInMonth(); i++) {
       const id = new Date(this.year(), this.getMonth(), i).getTime();
       let className = i === this.currentDate() ? "day current" : "day";
-      const index = this.state.notes.findIndex(x => x.id === id);
+      const index = this.getIndex(id);
       if (index !== -1 && this.state.notes[index].text !== "") {
         className += " pending";
       }
