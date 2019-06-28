@@ -29,6 +29,13 @@ class Calendar extends Component {
   daysInMonth = () =>
     new Date(this.year(), this.state.current.getMonth() + 1, 0).getDate(); // new Date(year(), this.state.current.getMonth() + 1, 0).getDate()) /////
   currentDate = () => this.state.current.getDate();
+  isCurrentDay = day => {
+    let date = new Date();
+    return (
+      new Date(this.year(), this.getMonth(), day).getTime() ===
+      new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()
+    );
+  };
   firstDay = () =>
     new Date(this.year(), this.state.current.getMonth(), 0).getDay();
 
@@ -88,10 +95,10 @@ class Calendar extends Component {
     let daysInMonth = [];
     for (let i = 1; i <= this.daysInMonth(); i++) {
       const id = new Date(this.year(), this.getMonth(), i).getTime();
-      let className = i === this.currentDate() ? "day current" : "day";
+      let className = this.isCurrentDay(i) ? "day current" : "day";
       const index = this.getIndex(id);
       if (index !== -1 && this.state.notes[index].text !== "") {
-        className += " pending";
+        className += " event";
       }
       daysInMonth.push(
         <Cell

@@ -11,9 +11,20 @@
 td.day {
   transition: background-color 0.3s ease;
 }
-td.day.pending {
-  color: green;
+td.day.event {
+  color: rgb(45, 138, 175);
   font-weight: bold;
+  position: relative;
+}
+td.day.event::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #28a745;
+  border-left: 12px solid transparent;
 }
 td.day:hover {
   background-color: rgb(221, 221, 221);
