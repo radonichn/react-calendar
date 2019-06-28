@@ -77,16 +77,16 @@ class Calendar extends Component {
   };
   closeModal = () => {
     const modalClass = "modal";
-    this.setState({ modalClass });
+    this.setState({ modalClass, note: "" });
   };
   handleSubmit = (e, id) => {
     e.preventDefault();
     const notes = [...this.state.notes];
     const index = this.getIndex(id);
     if (index !== -1) {
-      if (this.state.note !== "") {
-        notes[index].text = this.state.note;
-      }
+      // if (this.state.note !== "") {
+      notes[index].text = this.state.note;
+      // }
     } else {
       const newItem = {
         id,
@@ -105,7 +105,7 @@ class Calendar extends Component {
     const index = this.getIndex(id);
     if (index !== -1) {
       const currentNoteText = notes[index].text;
-      this.setState({ currentNoteText });
+      this.setState({ currentNoteText, note: currentNoteText });
     } else {
       this.setState({ currentNoteText: "" });
     }
@@ -181,6 +181,7 @@ class Calendar extends Component {
           noteId={this.state.currentNoteId}
           closeModal={this.closeModal}
           noteText={this.state.currentNoteText}
+          inputText={this.state.note}
         />
         <table className="table table-bordered">
           <thead className="thead-dark">

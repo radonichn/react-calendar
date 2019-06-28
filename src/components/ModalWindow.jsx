@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 class ModalWindow extends Component {
-  state = {};
-  componentDidUpdate = () => {
-    console.log("mounted the window");
-  };
   render() {
-    const { modalClass, noteId, noteText } = this.props;
+    const { modalClass, noteId, noteText, inputText } = this.props;
     return (
       <div className={modalClass}>
         <div className="modal-dialog">
@@ -28,6 +24,7 @@ class ModalWindow extends Component {
                     type="text"
                     className="form-control"
                     placeholder="Note text"
+                    value={inputText}
                     onChange={this.props.handleChange}
                   />
                 </div>
