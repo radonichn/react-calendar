@@ -44,3 +44,23 @@ td.day.current:hover {
   background-color: #0f7286;
   border: 1px solid #0f7286;
 }
+
+/* modal window styles */
+.modal {
+  transition: all 0.3s ease;
+  display: block;
+  opacity: 0;
+  z-index: -100;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal .modal-dialog {
+  top: -10000px;
+  transition: top 0.33s ease;
+}
+.modal.visible {
+  opacity: 1;
+  z-index: 1050;
+}
+.modal.visible .modal-dialog {
+  top: 0;
+}
