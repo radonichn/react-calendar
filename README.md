@@ -1,8 +1,9 @@
-## Available Scripts
+## Check out the app
 
-In the project directory, you can run:
+https://vigorous-wright-7b2e2e.netlify.com/
 
-### `npm start`
+
+### `npm start` to run the project
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
